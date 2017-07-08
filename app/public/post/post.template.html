@@ -74,7 +74,7 @@
             |
             <a><i class="glyphicon glyphicon-arrow-up" ng-click="$ctrl.upVote(post)"></i></a>
             <a><i class="glyphicon glyphicon-arrow-down"  ng-click="$ctrl.downVote(post)"></i></a>
-            {{post.votes}}
+            {{post.vote_count}}
           </h4>
           <div class="text-right">
             {{post.author}}
@@ -106,42 +106,6 @@
             </div>
           </div>
         </div>
-        <br>
-        <div ng-if="$ctrl.showEdit">
-          <form ng-submit="$ctrl.updatePost()" novalidate name="$ctrl.postForm">
-            <div ng-class="{
-              'has-error' : $ctrl.postForm.title.$invalid
-            }">
-              <label for="title">Title</label>
-              <input id="title_edit" class="form-control" ng-model="$ctrl.post.title" required name="title">
-            </div>
-            <div ng-class="{
-              'has-error' : $ctrl.postForm.body.$invalid
-            }">
-              <label for="body">Body</label>
-              <textarea id="body_edit" class="form-control" ng-model="$ctrl.post.body" required name="body"></textarea>
-            </div>
-            <div ng-class="{
-              'has-error' : $ctrl.postForm.author.$invalid
-            }">
-              <label for="author">Author</label>
-              <input id="author_edit" class="form-control" ng-model="$ctrl.post.author" required name="author">
-            </div>
-            <div ng-class="{
-              'has-error' : $ctrl.postForm.image.$invalid
-            }">
-              <label for="image-url">Image URL</label>
-              <input id="image-url_edit" class="form-control" ng-model="$ctrl.post.image_url" required name="image_url">
-            </div>
-            <div class="form-group">
-              <button ng-disabled="$ctrl.postForm.$invalid" type="submit" class="btn btn-primary">
-                Upate Post
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-
     </div>
   </div>
 </main>

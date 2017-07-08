@@ -60,22 +60,19 @@
         });
       };
 
-      vm.newUpdate = function(){
-        if(vm.showEdit === true){
-          vm.showEdit = false;
-        }
-        else {
-          vm.showEdit = true;
-        }
-      };
-
       vm.upVote = function(post){
-          post.votes += 1;
+        let postbox = vm.posts.indexOf(post);
+        $http.post('/api/posts/'+post.id+'/votes').then(function(response){
+          vm.posts[postbox].vote_count = response.data.vote_count;
+        });
       };
 
       vm.downVote = function(post){
-        if(post.votes > 0){
-          post.votes -= 1;
+        if(post.vote_count > 0){
+          let postbox = vm.posts.indexOf(post);
+          $http.delete('/api/posts/'+post.id+'/votes').then(function(response){
+            vm.posts[postbox].vote_count = response.data.vote_count;
+          });
         }
       };
     }
