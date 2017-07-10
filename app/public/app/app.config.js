@@ -13,7 +13,7 @@
       .state({
         name: 'posts',
         url: '/',
-        component: 'post',
+        component: 'posts',
       })
       .state({
         name: 'edit',
