@@ -8,21 +8,23 @@
       templateUrl: './post/post.template.html'
     });
 
-    controller.$inject = ['$http'];
+    controller.$inject = ['$http','postService'];
 
-    function controller($http){
+    function controller($http, postService){
       const vm = this;
       vm.posts = [];
 
       vm.$onInit = function(){
+
         vm.show = false;
         vm.showEdit = false;
         vm.propertyName = 'Votes';
-        $http.get('/api/posts').then(function(response){
-          vm.posts = response.data;
-        });
 
+        postService.getPosts().then(function(response){
+          vm.posts = response;
+        });
       };
+
 
       vm.newPost = function(){
         if(vm.show===true){
