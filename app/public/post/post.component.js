@@ -36,9 +36,12 @@
       };
 
       vm.createPost = function (){
-        $http.post('/api/posts',vm.post).then(function(response){
-          response.data.comments = [];
-          vm.posts.push(response.data);
+
+        let post = vm.post;
+
+        postService.newPost(post).then(function(response){
+          response.comments = [];
+          vm.posts.push(response);
         });
 
         vm.post.votes = 0;
@@ -58,22 +61,24 @@
         let id = post.id;
         let postbox = vm.posts.indexOf(post);
         message = {content: message};
-        $http.post('/api/posts/'+id+'/comments',message).then(function(response){ vm.posts[postbox].comments.unshift(response.data);
+        postService.newComment(id,message).then(function(response){ vm.posts[postbox].comments.unshift(response);
         });
       };
 
       vm.upVote = function(post){
         let postbox = vm.posts.indexOf(post);
-        $http.post('/api/posts/'+post.id+'/votes').then(function(response){
-          vm.posts[postbox].vote_count = response.data.vote_count;
+        let id = post.id;
+        postService.addUpVote(id).then(function(response){
+          vm.posts[postbox].vote_count = response.vote_count;
         });
       };
 
       vm.downVote = function(post){
         if(post.vote_count > 0){
+          let id = post.id;
           let postbox = vm.posts.indexOf(post);
-          $http.delete('/api/posts/'+post.id+'/votes').then(function(response){
-            vm.posts[postbox].vote_count = response.data.vote_count;
+          postService.addDownVote(id).then(function(response){
+            vm.posts[postbox].vote_count = response.vote_count;
           });
         }
       };
