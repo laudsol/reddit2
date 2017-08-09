@@ -18,7 +18,7 @@
 
         vm.show = false;
         vm.showEdit = false;
-        vm.propertyName = 'Votes';
+        vm.propertyName = name;
 
         postService.getPosts().then(function(response){
           vm.posts = response;
@@ -49,7 +49,7 @@
         vm.show = false;
       };
 
-      
+
     }
 
 })();
